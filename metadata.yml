@@ -1,0 +1,10 @@
+title: Make Earth Great Again
+description: Roguelike game, inspired by "The Binding of Isaac" and move "Wall-E". Main target is to have some entertainment in public transport.
+author: pyszne-jablko
+splash:
+  file: assets/no-image.png
+icon:
+  file: assets/no-icon.png
+version: v0.0.1
+category: game # game, demo, utility, ...
+url: https://github.com/pyszne-jablko/32blit-make-earth-great-again.git
