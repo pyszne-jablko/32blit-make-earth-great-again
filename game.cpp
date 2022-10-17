@@ -13,6 +13,9 @@ static char player_dir = 'R';
 constexpr std::size_t player_w = 16;
 constexpr std::size_t player_h = 16;
 
+/**
+ * \brief Draw player sprite on screen with correct orientation.
+ */
 void draw_player()
 {
     if(player_dir == 'L') {
@@ -32,26 +35,21 @@ void draw_player()
     
 }
 
-///////////////////////////////////////////////////////////////////////////
-//
-// init()
-//
-// setup your game here
-//
+/**
+ * \brief Setup game.
+ */
 void init() {
-    // set_screen_mode(ScreenMode::hires);
-    blit::set_screen_mode(ScreenMode::lores);
+    // ScreenMode::hires -> 320x240 (32blit DevKit)
+    // ScreenMode::lores -> 160x120
+    set_screen_mode(ScreenMode::hires);
 
     screen.sprites = Surface::load(asset_sprite);
 }
 
-///////////////////////////////////////////////////////////////////////////
-//
-// render(time)
-//
-// This function is called to perform rendering of the game. time is the 
-// amount if milliseconds elapsed since the start of your game
-//
+/**
+ * \brief This function is called to perform rendering of the game. time is the 
+ *        amount if milliseconds elapsed since the start of your game
+ */
 void render(uint32_t time) {
     // white rgb -> 255, 255, 255
     // black rgb -> 0, 0, 0
@@ -66,29 +64,15 @@ void render(uint32_t time) {
     screen.pen = Pen(0, 200, 0);
     screen.text("Make Earth Great Again", minimal_font, Point(5, 5));
 
-    // Draw sprite
+    // Draw player sprite
     draw_player();
 }
 
-///////////////////////////////////////////////////////////////////////////
-//
-// update(time)
-//
-// This is called to update your game state. time is the 
-// amount if milliseconds elapsed since the start of your game
-//
+/**
+ * \brief This is called to update your game state. time is the 
+ *        amount if milliseconds elapsed since the start of your game
+ */
 void update(uint32_t time) {
-    //bool button_a = blit::buttons & blit::Button::A;
-    //bool button_b = blit::buttons & blit::Button::B;
-    //bool button_x = blit::buttons & blit::Button::X;
-    //bool button_y = blit::buttons & blit::Button::Y;
-    //bool button_m = blit::buttons & blit::Button::MENU;
-    //bool button_h = blit::buttons & blit::Button::HOME;
-    //bool dpad_l = blit::buttons & blit::Button::DPAD_LEFT;
-    //bool dpad_r = blit::buttons & blit::Button::DPAD_RIGHT;
-    //bool dpad_u = blit::buttons & blit::Button::DPAD_UP;
-    //bool dpad_d = blit::buttons & blit::Button::DPAD_DOWN;
-
     // 20Hz
     static uint32_t dpad_prev_time { 0 };
     if ((time - dpad_prev_time) > 50) { // 20Hz
