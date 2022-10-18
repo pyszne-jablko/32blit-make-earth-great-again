@@ -1,0 +1,9 @@
+[
+    {
+      "name": "32blit-stm32",
+      "toolchainFile": "${workspaceFolder}/../32blit-sdk/32blit.toolchain"
+    },
+    {
+      "name": "gcc-buildin"
+    }
+  ]

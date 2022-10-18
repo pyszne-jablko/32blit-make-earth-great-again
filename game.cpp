@@ -3,15 +3,18 @@
 
 using namespace blit;
 
-/**
- * \brief Position of player (top left corner of sprite).
- */
-static Point player {8, 48};
-
 static char player_dir = 'R';
 
 constexpr std::size_t player_w = 16;
 constexpr std::size_t player_h = 16;
+
+/* ********** GLOBALS ********** */
+
+TileMap* environment; //!< Tail map
+
+std::string local_error_string {}; //!< String with information about error, if empty then no error.
+
+static Point player {8, 48}; //!< Position of player (top left corner of sprite).
 
 /**
  * \brief Draw player sprite on screen with correct orientation.
@@ -19,17 +22,9 @@ constexpr std::size_t player_h = 16;
 void draw_player()
 {
     if(player_dir == 'L') {
-        //screen.sprite(Point(4, 0), player); // Another way
-        //screen.sprite(Point(5, 0), player + Point(8, 0));
-        //screen.sprite(Point(4, 1), player + Point(0, 8));
-        //screen.sprite(Point(5, 1), player + Point(8, 8));
         screen.sprite(Rect(4, 0, 2, 2), player);
     }
     else { // Direction 'R' or unknown
-        //screen.sprite(Point(2, 0), player); // Another way
-        //screen.sprite(Point(3, 0), player + Point(8, 0));
-        //screen.sprite(Point(2, 1), player + Point(0, 8));
-        //screen.sprite(Point(3, 1), player + Point(8, 8));
         screen.sprite(Rect(2, 0, 2, 2), player);
     }
     
@@ -43,7 +38,14 @@ void init() {
     // ScreenMode::lores -> 160x120
     set_screen_mode(ScreenMode::hires);
 
+    // Load sprite
     screen.sprites = Surface::load(asset_sprite);
+
+    // Load map
+    environment = TileMap::load_tmx(map_1, screen.sprites);
+    if(nullptr == environment) {
+        local_error_string = "Can't load Tile Map";
+    }
 }
 
 /**
@@ -61,8 +63,18 @@ void render(uint32_t time) {
     screen.alpha = 255;
     screen.mask = nullptr;
 
+    // Draw map
+    environment->draw(&screen, Rect(0, 0, 320, 240)); // It looks like "Rect" width and height are in pixels, not sprites.
+
+    // Draw text with game name
     screen.pen = Pen(0, 200, 0);
     screen.text("Make Earth Great Again", minimal_font, Point(5, 5));
+
+    // Draw test with error (if needed)
+    if(local_error_string.length() != 0) {
+        screen.pen = Pen(200, 0, 0);
+        screen.text(local_error_string.c_str(), minimal_font, Point(10, 20));
+    }
 
     // Draw player sprite
     draw_player();
@@ -93,10 +105,12 @@ void update(uint32_t time) {
         if(player.x < 0) {
             player.x = 0;
         }
-        if(player.x > 128) {
-            player.x = 128;
+        int max_x = 320 - player_w;
+        if(player.x > max_x) {
+            player.x = max_x;
         }
 
+        // Save time as previous
         dpad_prev_time = time;
     }
 }
