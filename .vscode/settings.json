@@ -1,4 +1,7 @@
 {
     "cmake.configureOnOpen": true,
-    "cmake.sourceDirectory": "${workspaceFolder}/."
+    "cmake.sourceDirectory": "${workspaceFolder}/.",
+    "cmake.configureSettings": {"32BLIT_DIR": "${workspaceFolder}/../32blit-sdk/"},
+    "cmake.generator": "Unix Makefiles",
+    "cmake.buildDirectory": "${workspaceFolder}/build-${buildKit}"
 }

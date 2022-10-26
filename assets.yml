@@ -7,5 +7,6 @@ assets.cpp:
     name: asset_no_image
   assets/make-earth-great-again.png:
     name: asset_sprite
-#  assets/tilemap-test.tmx:
-#    name: asset_tilemap
+  maps/map-1.tmx:
+    name: map_1
+    output_struct: true
