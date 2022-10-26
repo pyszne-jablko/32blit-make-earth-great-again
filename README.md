@@ -1,5 +1,16 @@
 # 32Blit Make Earth Great Again
 
+# Key binding
+
+| Linux | 32blit | Desciption |
+|---|---|---|
+| 1 | HOME | todo |
+| 2 | MENU | todo |
+| Z, U | A | todo |
+| X, I | B | todo |
+| C, O | X | todo |
+| V, P | Y | todo |
+
 ![Build](https://github.com/32blit/32blit-boilerplate/workflows/Build/badge.svg)
 
 This is a basic template for starting 32blit projects. It shows the basic
